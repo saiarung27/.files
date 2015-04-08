@@ -3,3 +3,6 @@ export DF="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . $DF/.exports
 . $DF/.aliases
 . $DF/.git-completion
+. $DF/.git-prompt.sh
+
+export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '

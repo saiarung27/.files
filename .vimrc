@@ -131,7 +131,7 @@ if filereadable(expand('~/.vimrc.local'))
 endif
 
 set t_Co=16
-" set background=dark
+set background=dark
 colorscheme solarized
 
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
