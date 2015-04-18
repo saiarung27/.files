@@ -154,3 +154,7 @@ if $TERM =~ '^screen-256color'
     map <Esc>OF <End>
     map! <Esc>OF <End>
 endif
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <C-n> :NERDTreeToggle<CR>

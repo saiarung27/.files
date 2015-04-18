@@ -38,7 +38,7 @@ get_bundle tpope vim-git
 get_bundle tpope vim-markdown
 get_bundle tpope vim-pathogen
 get_bundle tpope vim-ragtag
-#get_bundle tpope vim-rails
+get_bundle tpope vim-rails
 get_bundle tpope vim-rake
 get_bundle tpope vim-repeat
 get_bundle tpope vim-sensible
@@ -46,6 +46,8 @@ get_bundle tpope vim-speeddating
 get_bundle tpope vim-surround
 get_bundle tpope vim-unimpaired
 get_bundle vim-ruby vim-ruby
+get_bundle mattn emmet-vim
+get_bundle scrooloose nerdtree
 # get_bundle wookiehangover jshint.vi
 
 vim -c 'call pathogen#helptags()|q'
