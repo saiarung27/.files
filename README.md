@@ -2,4 +2,4 @@
 
     sh .files/setup.sh
 
-    echo "source ~/.files/.source" >> ~/.bashrc
+    echo "source ~/.files/.source" >> ~/.profile

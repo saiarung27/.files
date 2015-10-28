@@ -36,10 +36,11 @@ get_bundle tpope vim-surround
 get_bundle tpope vim-unimpaired
 get_bundle vim-ruby vim-ruby
 get_bundle mattn emmet-vim
-get_bundle scrooloose nerdtree
-get_bundle wincent command-t
 get_bundle mxw vim-jsx
-get_bundle isRuslan vim-es6
+get_bundle othree yajs.vim
 get_bundle jeffkreeftmeijer vim-numbertoggle
+get_bundle terryma vim-multiple-cursors
+get_bundle kien ctrlp.vim
+get_bundle tpope vim-vinegar
 
 vim -c 'call pathogen#helptags()|q'

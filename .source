@@ -4,4 +4,4 @@ export DF=~/.files
 . $DF/.git-completion
 . $DF/.git-prompt.sh
 
-export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+export PS1=" \[\033[01;34m\]\w\[\033[00m\] \$ "

@@ -40,7 +40,6 @@ set noswapfile              " don't keep swp files either
 set nowrap                  " do not wrap lines
 set nowritebackup           " do not keep a backup while working
 set number                  " line numbers
-set paste
 set pastetoggle=<F4>
 set report=0                " tell us about changes
 set ruler                   " show the cursor position all the time
@@ -67,9 +66,14 @@ set wildmenu                " turn on wild menu
 set wildmode=list:longest,full
 
 let mapleader=" "
+
 nnoremap <silent> <C-K> :%s/\s\+$//g<CR>
-nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
-nnoremap <silent> <Leader>t :CommandT<CR>
+nnoremap <silent> <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
+nnoremap <silent> <Leader>k :Explore<CR>
+nnoremap <silent> <Leader>p :CtrlP<CR>
+nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
+nnoremap <silent> <Leader>u :CtrlPMRU<CR>
+nnoremap <silent> <Leader>m :CtrlPMixed<CR>
 
 call pathogen#runtime_append_all_bundles()
 
@@ -94,16 +98,6 @@ map <A-F7> :copen<CR>
 
 nnoremap <silent> <Tab> :bn<CR>
 nnoremap <silent> <S-Tab> :bp<CR>
-
-" duplicate current tab with same file+line
-map ,t :tabnew %<CR>
-
-" open directory dirname of current file, and in new tab
-map ,d :e %:h/<CR>
-map ,dt :tabnew %:h/<CR>
-
-" open gf under cursor in new tab
-map ,f :tabnew <cfile><CR>
 
 autocmd FileType javascript setlocal nocindent
 au Filetype sh,bash set ts=2 sts=2 sw=2 expandtab
@@ -136,7 +130,7 @@ if filereadable(expand('~/.vimrc.local'))
 endif
 
 " set t_Co=16
-set background=dark
+" set background=dark
 colorscheme smyck
 
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
@@ -162,4 +156,40 @@ endif
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
+
+set relativenumber
+let g:airline_theme='bubblegum'
+let g:airline#extensions#branch#enabled = 0
+let g:netrw_liststyle=3
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
+
+let g:user_emmet_leader_key = '<C-h>'
+imap   <Tab>   <plug>(emmet-expand-abbr)
+" imap   <C-y>;   <plug>(emmet-expand-word)
+" imap   <C-y>u   <plug>(emmet-update-tag)
+" imap   <C-y>d   <plug>(emmet-balance-tag-inward)
+" imap   <C-y>D   <plug>(emmet-balance-tag-outward)
+" imap   <C-y>n   <plug>(emmet-move-next)
+" imap   <C-y>N   <plug>(emmet-move-prev)
+" imap   <C-y>i   <plug>(emmet-image-size)
+" imap   <C-y>/   <plug>(emmet-toggle-comment)
+" imap   <C-y>j   <plug>(emmet-split-join-tag)
+" imap   <C-y>k   <plug>(emmet-remove-tag)
+" imap   <C-y>a   <plug>(emmet-anchorize-url)
+" imap   <C-y>A   <plug>(emmet-anchorize-summary)
+" imap   <C-y>m   <plug>(emmet-merge-lines)
+" imap   <C-y>c   <plug>(emmet-code-pretty)
+
+function s:MKDir(...)
+  if         !a:0 
+        \|| stridx('`+', a:1[0])!=-1
+        \|| a:1=~#'\v\\@<![ *?[%#]'
+        \|| isdirectory(a:1)
+        \|| filereadable(a:1)
+        \|| isdirectory(fnamemodify(a:1, ':p:h'))
+    return
+  endif
+  return mkdir(fnamemodify(a:1, ':p:h'), 'p')
+endfunction
+command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <args>
